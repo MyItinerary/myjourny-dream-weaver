@@ -16,31 +16,58 @@ export type Database = {
     Tables: {
       waitlist_signups: {
         Row: {
+          budget_level: string | null
           city: string
           created_at: string
           email: string
           first_name: string
+          host_interest: string | null
           id: string
+          local_challenges: string[] | null
+          local_frequency: string | null
+          local_methods: string[] | null
           referral_source: string | null
+          travel_frequency: string | null
+          travel_pain_point: string | null
+          travel_personality: string | null
           travel_vibes: string[] | null
+          use_cases: string[] | null
         }
         Insert: {
+          budget_level?: string | null
           city: string
           created_at?: string
           email: string
           first_name: string
+          host_interest?: string | null
           id?: string
+          local_challenges?: string[] | null
+          local_frequency?: string | null
+          local_methods?: string[] | null
           referral_source?: string | null
+          travel_frequency?: string | null
+          travel_pain_point?: string | null
+          travel_personality?: string | null
           travel_vibes?: string[] | null
+          use_cases?: string[] | null
         }
         Update: {
+          budget_level?: string | null
           city?: string
           created_at?: string
           email?: string
           first_name?: string
+          host_interest?: string | null
           id?: string
+          local_challenges?: string[] | null
+          local_frequency?: string | null
+          local_methods?: string[] | null
           referral_source?: string | null
+          travel_frequency?: string | null
+          travel_pain_point?: string | null
+          travel_personality?: string | null
           travel_vibes?: string[] | null
+          use_cases?: string[] | null
         }
         Relationships: []
       }
