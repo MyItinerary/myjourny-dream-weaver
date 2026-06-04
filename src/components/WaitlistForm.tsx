@@ -235,15 +235,27 @@ export function WaitlistForm() {
     if (!validateStep(1) || !validateStep(2) || !validateStep(3)) return;
     setSubmitting(true);
     setServerMsg(null);
+    const painPoint =
+      data.travel_pain_point === "Other" && data.travel_pain_point_other.trim()
+        ? `Other: ${data.travel_pain_point_other.trim()}`
+        : data.travel_pain_point || null;
+    const localChallenges =
+      data.local_challenges.length
+        ? data.local_challenges.map((c) =>
+            c === "Other" && data.local_challenges_other.trim()
+              ? `Other: ${data.local_challenges_other.trim()}`
+              : c
+          )
+        : null;
     const payload = {
       first_name: data.first_name.trim(),
       email: data.email.trim(),
       city: data.city as "Lagos" | "Abuja" | "Other",
       travel_frequency: data.travel_frequency || null,
-      travel_pain_point: data.travel_pain_point || null,
+      travel_pain_point: painPoint,
       travel_personality: data.travel_personality || null,
       local_frequency: data.local_frequency || null,
-      local_challenges: data.local_challenges.length ? data.local_challenges : null,
+      local_challenges: localChallenges,
       local_methods: data.local_methods.length ? data.local_methods : null,
       use_cases: data.use_cases.length ? data.use_cases : null,
       budget_level: data.budget_level || null,
