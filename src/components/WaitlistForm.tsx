@@ -292,7 +292,7 @@ export function WaitlistForm() {
   }
 
   return (
-    <div className="rounded-2xl bg-card p-6 sm:p-8 shadow-[var(--shadow-soft)] border space-y-6">
+    <div ref={formRef} className="rounded-2xl bg-card p-6 sm:p-8 shadow-[var(--shadow-soft)] border space-y-6">
       <Progress step={step} />
       {resumed && step > 1 && (
         <p className="text-xs text-muted-foreground -mt-2">Resuming from step {step}…</p>
