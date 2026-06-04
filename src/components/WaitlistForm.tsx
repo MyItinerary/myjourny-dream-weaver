@@ -221,7 +221,7 @@ export function WaitlistForm() {
     if (!validateStep(step)) return;
     if (step < TOTAL_STEPS) {
       setStep(step + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     } else {
       await submit();
     }
