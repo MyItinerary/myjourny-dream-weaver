@@ -101,9 +101,11 @@ type FormState = {
   city: "" | "Lagos" | "Abuja" | "Other";
   travel_frequency: string;
   travel_pain_point: string;
+  travel_pain_point_other: string;
   travel_personality: string;
   local_frequency: string;
   local_challenges: string[];
+  local_challenges_other: string;
   local_methods: string[];
   use_cases: string[];
   budget_level: string;
