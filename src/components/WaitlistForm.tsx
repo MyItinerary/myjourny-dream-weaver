@@ -20,7 +20,7 @@ const TRAVEL_FREQUENCY = [
   "Monthly or more",
   "2–4 times a year",
   "Once a year",
-  "Less than once a year",
+  "I don't travel at all",
 ] as const;
 
 const TRAVEL_PAIN_POINTS = [
