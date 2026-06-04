@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -20,7 +20,7 @@ const TRAVEL_FREQUENCY = [
   "Monthly or more",
   "2–4 times a year",
   "Once a year",
-  "Less than once a year",
+  "I don't travel at all",
 ] as const;
 
 const TRAVEL_PAIN_POINTS = [
@@ -60,6 +60,7 @@ const LOCAL_CHALLENGES = [
   "Word-of-mouth is unreliable",
   "Takes too much time to research",
   "I don't have this problem / not applicable",
+  "Other",
 ] as const;
 
 const LOCAL_METHODS = [
@@ -82,9 +83,9 @@ const USE_CASES = [
 ] as const;
 
 const BUDGETS = [
-  "Low ($0–$20/day)",
-  "Mid ($20–$60/day)",
-  "Premium ($60+/day)",
+  "Low (₦0–₦8,000/day) ~$5–20",
+  "Mid (₦8,000–₦24,000/day) ~$20–60",
+  "Premium (₦24,000+/day) ~$60+",
   "Varies per trip/activity",
 ] as const;
 
@@ -100,9 +101,11 @@ type FormState = {
   city: "" | "Lagos" | "Abuja" | "Other";
   travel_frequency: string;
   travel_pain_point: string;
+  travel_pain_point_other: string;
   travel_personality: string;
   local_frequency: string;
   local_challenges: string[];
+  local_challenges_other: string;
   local_methods: string[];
   use_cases: string[];
   budget_level: string;
@@ -115,9 +118,11 @@ const initialState: FormState = {
   city: "",
   travel_frequency: "",
   travel_pain_point: "",
+  travel_pain_point_other: "",
   travel_personality: "",
   local_frequency: "",
   local_challenges: [],
+  local_challenges_other: "",
   local_methods: [],
   use_cases: [],
   budget_level: "",
@@ -142,6 +147,7 @@ export function WaitlistForm() {
   const [done, setDone] = useState(false);
   const [serverMsg, setServerMsg] = useState<string | null>(null);
   const [resumed, setResumed] = useState(false);
+  const formRef = useRef<HTMLDivElement>(null);
 
   // Restore draft
   useEffect(() => {
@@ -215,7 +221,7 @@ export function WaitlistForm() {
     if (!validateStep(step)) return;
     if (step < TOTAL_STEPS) {
       setStep(step + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     } else {
       await submit();
     }
@@ -229,15 +235,27 @@ export function WaitlistForm() {
     if (!validateStep(1) || !validateStep(2) || !validateStep(3)) return;
     setSubmitting(true);
     setServerMsg(null);
+    const painPoint =
+      data.travel_pain_point === "Other" && data.travel_pain_point_other.trim()
+        ? `Other: ${data.travel_pain_point_other.trim()}`
+        : data.travel_pain_point || null;
+    const localChallenges =
+      data.local_challenges.length
+        ? data.local_challenges.map((c) =>
+            c === "Other" && data.local_challenges_other.trim()
+              ? `Other: ${data.local_challenges_other.trim()}`
+              : c
+          )
+        : null;
     const payload = {
       first_name: data.first_name.trim(),
       email: data.email.trim(),
       city: data.city as "Lagos" | "Abuja" | "Other",
       travel_frequency: data.travel_frequency || null,
-      travel_pain_point: data.travel_pain_point || null,
+      travel_pain_point: painPoint,
       travel_personality: data.travel_personality || null,
       local_frequency: data.local_frequency || null,
-      local_challenges: data.local_challenges.length ? data.local_challenges : null,
+      local_challenges: localChallenges,
       local_methods: data.local_methods.length ? data.local_methods : null,
       use_cases: data.use_cases.length ? data.use_cases : null,
       budget_level: data.budget_level || null,
@@ -274,7 +292,7 @@ export function WaitlistForm() {
   }
 
   return (
-    <div className="rounded-2xl bg-card p-6 sm:p-8 shadow-[var(--shadow-soft)] border space-y-6">
+    <div ref={formRef} className="rounded-2xl bg-card p-6 sm:p-8 shadow-[var(--shadow-soft)] border space-y-6">
       <Progress step={step} />
       {resumed && step > 1 && (
         <p className="text-xs text-muted-foreground -mt-2">Resuming from step {step}…</p>
@@ -334,6 +352,17 @@ export function WaitlistForm() {
             onChange={(v) => update("travel_pain_point", v)}
             error={errors.travel_pain_point}
           />
+          {data.travel_pain_point === "Other" && (
+            <Field label="Tell us your pain point" htmlFor="travel_pain_point_other">
+              <Input
+                id="travel_pain_point_other"
+                value={data.travel_pain_point_other}
+                onChange={(e) => update("travel_pain_point_other", e.target.value)}
+                placeholder="Type your pain point"
+                maxLength={100}
+              />
+            </Field>
+          )}
           <RadioGroup
             label="What's your travel personality?"
             options={TRAVEL_PERSONALITY}
@@ -361,11 +390,23 @@ export function WaitlistForm() {
             onToggle={(v) => toggleArray("local_challenges", v, 3)}
             help="Select up to 3 that apply (optional)"
           />
+          {data.local_challenges.includes("Other") && (
+            <Field label="Tell us your challenge" htmlFor="local_challenges_other">
+              <Input
+                id="local_challenges_other"
+                value={data.local_challenges_other}
+                onChange={(e) => update("local_challenges_other", e.target.value)}
+                placeholder="Type your challenge"
+                maxLength={100}
+              />
+            </Field>
+          )}
           <CheckboxGroup
             label="Where do you currently discover things to do in your city?"
             options={LOCAL_METHODS}
             values={data.local_methods}
             onToggle={(v) => toggleArray("local_methods", v)}
+            help="Select all that apply"
           />
         </StepWrap>
       )}
