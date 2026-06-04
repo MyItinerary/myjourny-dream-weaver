@@ -352,6 +352,17 @@ export function WaitlistForm() {
             onChange={(v) => update("travel_pain_point", v)}
             error={errors.travel_pain_point}
           />
+          {data.travel_pain_point === "Other" && (
+            <Field label="Tell us your pain point" htmlFor="travel_pain_point_other">
+              <Input
+                id="travel_pain_point_other"
+                value={data.travel_pain_point_other}
+                onChange={(e) => update("travel_pain_point_other", e.target.value)}
+                placeholder="Type your pain point"
+                maxLength={100}
+              />
+            </Field>
+          )}
           <RadioGroup
             label="What's your travel personality?"
             options={TRAVEL_PERSONALITY}
