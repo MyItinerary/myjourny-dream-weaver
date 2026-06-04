@@ -60,6 +60,7 @@ const LOCAL_CHALLENGES = [
   "Word-of-mouth is unreliable",
   "Takes too much time to research",
   "I don't have this problem / not applicable",
+  "Other",
 ] as const;
 
 const LOCAL_METHODS = [
@@ -82,9 +83,9 @@ const USE_CASES = [
 ] as const;
 
 const BUDGETS = [
-  "Low ($0–$20/day)",
-  "Mid ($20–$60/day)",
-  "Premium ($60+/day)",
+  "Low (₦0–₦8,000/day) ~$5–20",
+  "Mid (₦8,000–₦24,000/day) ~$20–60",
+  "Premium (₦24,000+/day) ~$60+",
   "Varies per trip/activity",
 ] as const;
 
