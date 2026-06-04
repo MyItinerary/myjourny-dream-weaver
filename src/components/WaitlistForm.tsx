@@ -147,6 +147,7 @@ export function WaitlistForm() {
   const [done, setDone] = useState(false);
   const [serverMsg, setServerMsg] = useState<string | null>(null);
   const [resumed, setResumed] = useState(false);
+  const formRef = useRef<HTMLDivElement>(null);
 
   // Restore draft
   useEffect(() => {
