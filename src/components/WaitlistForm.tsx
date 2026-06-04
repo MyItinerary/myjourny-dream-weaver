@@ -390,11 +390,23 @@ export function WaitlistForm() {
             onToggle={(v) => toggleArray("local_challenges", v, 3)}
             help="Select up to 3 that apply (optional)"
           />
+          {data.local_challenges.includes("Other") && (
+            <Field label="Tell us your challenge" htmlFor="local_challenges_other">
+              <Input
+                id="local_challenges_other"
+                value={data.local_challenges_other}
+                onChange={(e) => update("local_challenges_other", e.target.value)}
+                placeholder="Type your challenge"
+                maxLength={100}
+              />
+            </Field>
+          )}
           <CheckboxGroup
             label="Where do you currently discover things to do in your city?"
             options={LOCAL_METHODS}
             values={data.local_methods}
             onToggle={(v) => toggleArray("local_methods", v)}
+            help="Select all that apply"
           />
         </StepWrap>
       )}
