@@ -252,10 +252,14 @@ export function WaitlistForm() {
               : c
           )
         : null;
+    const cityValue =
+      data.city === "Other" && data.city_other.trim()
+        ? `Other: ${data.city_other.trim()}`
+        : data.city;
     const payload = {
       first_name: data.first_name.trim(),
       email: data.email.trim(),
-      city: data.city as "Lagos" | "Abuja" | "Other",
+      city: cityValue as "Lagos" | "Abuja" | "Other",
       travel_frequency: data.travel_frequency || null,
       travel_pain_point: painPoint,
       travel_personality: data.travel_personality || null,
