@@ -99,6 +99,7 @@ type FormState = {
   first_name: string;
   email: string;
   city: "" | "Lagos" | "Abuja" | "Other";
+  city_other: string;
   travel_frequency: string;
   travel_pain_point: string;
   travel_pain_point_other: string;
@@ -116,6 +117,7 @@ const initialState: FormState = {
   first_name: "",
   email: "",
   city: "",
+  city_other: "",
   travel_frequency: "",
   travel_pain_point: "",
   travel_pain_point_other: "",
@@ -205,6 +207,9 @@ export function WaitlistForm() {
           if (!errs[k]) errs[k] = issue.message;
         }
       }
+      if (data.city === "Other" && !data.city_other.trim()) {
+        errs.city_other = "Please specify your city";
+      }
     }
     if (s === 2) {
       if (!data.travel_frequency) errs.travel_frequency = "Please select your travel frequency";
@@ -247,10 +252,14 @@ export function WaitlistForm() {
               : c
           )
         : null;
+    const cityValue =
+      data.city === "Other" && data.city_other.trim()
+        ? `Other: ${data.city_other.trim()}`
+        : data.city;
     const payload = {
       first_name: data.first_name.trim(),
       email: data.email.trim(),
-      city: data.city as "Lagos" | "Abuja" | "Other",
+      city: cityValue as "Lagos" | "Abuja" | "Other",
       travel_frequency: data.travel_frequency || null,
       travel_pain_point: painPoint,
       travel_personality: data.travel_personality || null,
@@ -331,6 +340,18 @@ export function WaitlistForm() {
               </SelectContent>
             </Select>
           </Field>
+          {data.city === "Other" && (
+            <Field label="Specify your city" error={errors.city_other} htmlFor="city_other" required>
+              <Input
+                id="city_other"
+                value={data.city_other}
+                onChange={(e) => update("city_other", e.target.value)}
+                placeholder="Enter your city name"
+                aria-invalid={!!errors.city_other}
+                maxLength={100}
+              />
+            </Field>
+          )}
         </StepWrap>
       )}
 
