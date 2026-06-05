@@ -99,6 +99,7 @@ type FormState = {
   first_name: string;
   email: string;
   city: "" | "Lagos" | "Abuja" | "Other";
+  city_other: string;
   travel_frequency: string;
   travel_pain_point: string;
   travel_pain_point_other: string;
@@ -116,6 +117,7 @@ const initialState: FormState = {
   first_name: "",
   email: "",
   city: "",
+  city_other: "",
   travel_frequency: "",
   travel_pain_point: "",
   travel_pain_point_other: "",
