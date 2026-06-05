@@ -1,0 +1,1 @@
+CREATE POLICY "Explicitly deny all SELECT on waitlist_signups" ON public.waitlist_signups FOR SELECT USING (false);
