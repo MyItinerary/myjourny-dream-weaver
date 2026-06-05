@@ -336,6 +336,18 @@ export function WaitlistForm() {
               </SelectContent>
             </Select>
           </Field>
+          {data.city === "Other" && (
+            <Field label="Specify your city" error={errors.city_other} htmlFor="city_other" required>
+              <Input
+                id="city_other"
+                value={data.city_other}
+                onChange={(e) => update("city_other", e.target.value)}
+                placeholder="Enter your city name"
+                aria-invalid={!!errors.city_other}
+                maxLength={100}
+              />
+            </Field>
+          )}
         </StepWrap>
       )}
 
