@@ -207,6 +207,9 @@ export function WaitlistForm() {
           if (!errs[k]) errs[k] = issue.message;
         }
       }
+      if (data.city === "Other" && !data.city_other.trim()) {
+        errs.city_other = "Please specify your city";
+      }
     }
     if (s === 2) {
       if (!data.travel_frequency) errs.travel_frequency = "Please select your travel frequency";
