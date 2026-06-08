@@ -10,6 +10,12 @@ export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
-    server: { entry: "server" },
+    server: {
+      entry: "server",
+      // NITRO_PRESET env var switches the deployment target:
+      //   unset  → cloudflare (Lovable default)
+      //   vercel → Vercel serverless (set in Vercel project env vars)
+      ...(process.env.NITRO_PRESET ? { preset: process.env.NITRO_PRESET } : {}),
+    },
   },
 });
