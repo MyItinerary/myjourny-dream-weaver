@@ -15,13 +15,19 @@ cpSync("dist/client", `${OUT}/static`, { recursive: true });
 // Serverless function bundle (all of dist/server/)
 cpSync("dist/server", `${OUT}/functions/index.func`, { recursive: true });
 
-// Vercel Build Output config — filesystem-first, then SSR catch-all
+// Vercel Build Output config — filesystem-first, then SSR catch-all.
+// The negative lookahead explicitly excludes /_vercel/* so Vercel's own
+// infrastructure endpoints (analytics, speed insights, etc.) are never
+// routed into our SSR function.
 writeFileSync(
   `${OUT}/config.json`,
   JSON.stringify(
     {
       version: 3,
-      routes: [{ handle: "filesystem" }, { src: "/(.*)", dest: "/" }],
+      routes: [
+        { handle: "filesystem" },
+        { src: "^(?!/_vercel)/(.*)$", dest: "/" },
+      ],
     },
     null,
     2,
