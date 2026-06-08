@@ -101,7 +101,9 @@ function CardGrid({ cards, tone }: { cards: Card[]; tone: "muted" | "primary" })
         >
           <div
             className={`flex h-12 w-12 items-center justify-center rounded-xl ${
-              tone === "primary" ? "bg-primary text-primary-foreground" : "bg-secondary text-foreground/70"
+              tone === "primary"
+                ? "bg-primary text-primary-foreground"
+                : "bg-secondary text-foreground/70"
             }`}
           >
             <Icon className="h-5 w-5" />
@@ -138,11 +140,15 @@ function Landing() {
               Travel experiences <span className="text-primary">tailored to you</span>.
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-xl">
-              Stop scrolling through generic recommendations. MyJourny learns who you are and curates
-              experiences you'll genuinely enjoy — not what's popular.
+              Stop scrolling through generic recommendations. MyJourny learns who you are and
+              curates experiences you'll genuinely enjoy — not what's popular.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="h-12 px-6 rounded-full shadow-[var(--shadow-glow)]">
+              <Button
+                asChild
+                size="lg"
+                className="h-12 px-6 rounded-full shadow-[var(--shadow-glow)]"
+              >
                 <a href="#waitlist">Join the Waitlist</a>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-12 px-6 rounded-full">
@@ -285,10 +291,26 @@ function Landing() {
       >
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { icon: Brain, title: "AI that learns you", copy: "Personalization that improves with every trip." },
-            { icon: ShieldCheck, title: "Transparent & safe", copy: "Curated hosts, trust badges, and clear safety info." },
-            { icon: MapPin, title: "Local-first", copy: "Authentic experiences from authentic hosts." },
-            { icon: Users, title: "Flexible itinerary", copy: "Drag-and-drop planning with smart suggestions." },
+            {
+              icon: Brain,
+              title: "AI that learns you",
+              copy: "Personalization that improves with every trip.",
+            },
+            {
+              icon: ShieldCheck,
+              title: "Transparent & safe",
+              copy: "Curated hosts, trust badges, and clear safety info.",
+            },
+            {
+              icon: MapPin,
+              title: "Local-first",
+              copy: "Authentic experiences from authentic hosts.",
+            },
+            {
+              icon: Users,
+              title: "Flexible itinerary",
+              copy: "Drag-and-drop planning with smart suggestions.",
+            },
           ].map(({ icon: Icon, title, copy }) => (
             <div key={title} className="rounded-2xl border bg-card p-6">
               <Icon className="h-6 w-6 text-primary" />
@@ -333,17 +355,32 @@ function Landing() {
               <p className="mt-2 text-sm">Travel that fits you.</p>
             </div>
             <nav className="flex flex-wrap gap-6 text-sm">
-              <a href="#problem" className="hover:text-background transition-colors">The problem</a>
-              <a href="#solution" className="hover:text-background transition-colors">Solution</a>
-              <a href="#how" className="hover:text-background transition-colors">How it works</a>
-              <a href="mailto:hello@myjourny.app" className="hover:text-background transition-colors">Contact</a>
+              <a href="#problem" className="hover:text-background transition-colors">
+                The problem
+              </a>
+              <a href="#solution" className="hover:text-background transition-colors">
+                Solution
+              </a>
+              <a href="#how" className="hover:text-background transition-colors">
+                How it works
+              </a>
+              <a
+                href="mailto:hello@myjourny.app"
+                className="hover:text-background transition-colors"
+              >
+                Contact
+              </a>
             </nav>
           </div>
           <div className="mt-10 pt-6 border-t border-background/15 flex flex-col sm:flex-row sm:justify-between gap-3 text-xs">
             <p>© {new Date().getFullYear()} MyJourny. All rights reserved.</p>
             <div className="flex gap-5">
-              <a href="#" className="hover:text-background transition-colors">Privacy</a>
-              <a href="#" className="hover:text-background transition-colors">Terms</a>
+              <a href="#" className="hover:text-background transition-colors">
+                Privacy
+              </a>
+              <a href="#" className="hover:text-background transition-colors">
+                Terms
+              </a>
             </div>
           </div>
         </div>

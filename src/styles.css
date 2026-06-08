@@ -65,10 +65,12 @@
   --ring: oklch(0.62 0.13 165);
 
   /* Gradients & shadows */
-  --gradient-hero: radial-gradient(ellipse at top right, oklch(0.62 0.13 165 / 0.18), transparent 60%),
-                   linear-gradient(180deg, oklch(0.995 0.005 150), oklch(0.97 0.02 160));
+  --gradient-hero:
+    radial-gradient(ellipse at top right, oklch(0.62 0.13 165 / 0.18), transparent 60%),
+    linear-gradient(180deg, oklch(0.995 0.005 150), oklch(0.97 0.02 160));
   --gradient-primary: linear-gradient(135deg, oklch(0.62 0.13 165), oklch(0.55 0.13 170));
-  --shadow-soft: 0 1px 2px oklch(0.21 0.04 165 / 0.04), 0 8px 24px -12px oklch(0.21 0.04 165 / 0.12);
+  --shadow-soft:
+    0 1px 2px oklch(0.21 0.04 165 / 0.04), 0 8px 24px -12px oklch(0.21 0.04 165 / 0.12);
   --shadow-glow: 0 20px 60px -20px oklch(0.62 0.13 165 / 0.35);
 }
 
@@ -85,7 +87,10 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
   }
