@@ -79,14 +79,34 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "MyJourny — Travel Experiences Tailored to You" },
-      { name: "description", content: "Personality-driven travel discovery. Authentic local experiences in Lagos & Abuja." },
+      {
+        name: "description",
+        content:
+          "Personality-driven travel discovery. Authentic local experiences in Lagos & Abuja.",
+      },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:title", content: "MyJourny — Travel Experiences Tailored to You" },
       { name: "twitter:title", content: "MyJourny — Travel Experiences Tailored to You" },
-      { property: "og:description", content: "Personality-driven travel discovery. Authentic local experiences in Lagos & Abuja." },
-      { name: "twitter:description", content: "Personality-driven travel discovery. Authentic local experiences in Lagos & Abuja." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1ea4a7b7-64ee-4712-83ca-3a96a0fcb1fe/id-preview-c2830932--68683a78-6052-4ea6-b976-dc941e567b65.lovable.app-1780650533889.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1ea4a7b7-64ee-4712-83ca-3a96a0fcb1fe/id-preview-c2830932--68683a78-6052-4ea6-b976-dc941e567b65.lovable.app-1780650533889.png" },
+      {
+        property: "og:description",
+        content:
+          "Personality-driven travel discovery. Authentic local experiences in Lagos & Abuja.",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Personality-driven travel discovery. Authentic local experiences in Lagos & Abuja.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1ea4a7b7-64ee-4712-83ca-3a96a0fcb1fe/id-preview-c2830932--68683a78-6052-4ea6-b976-dc941e567b65.lovable.app-1780650533889.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1ea4a7b7-64ee-4712-83ca-3a96a0fcb1fe/id-preview-c2830932--68683a78-6052-4ea6-b976-dc941e567b65.lovable.app-1780650533889.png",
+      },
       { property: "og:type", content: "website" },
     ],
     links: [

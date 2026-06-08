@@ -184,7 +184,11 @@ export function WaitlistForm() {
     });
   }
 
-  function toggleArray(key: "local_challenges" | "local_methods" | "use_cases", value: string, max?: number) {
+  function toggleArray(
+    key: "local_challenges" | "local_methods" | "use_cases",
+    value: string,
+    max?: number,
+  ) {
     setData((d) => {
       const cur = d[key];
       if (cur.includes(value)) return { ...d, [key]: cur.filter((v) => v !== value) };
@@ -213,10 +217,12 @@ export function WaitlistForm() {
     }
     if (s === 2) {
       if (!data.travel_frequency) errs.travel_frequency = "Please select your travel frequency";
-      if (!data.travel_pain_point) errs.travel_pain_point = "Please select your biggest frustration";
+      if (!data.travel_pain_point)
+        errs.travel_pain_point = "Please select your biggest frustration";
     }
     if (s === 3) {
-      if (!data.local_frequency) errs.local_frequency = "Please select your local exploration frequency";
+      if (!data.local_frequency)
+        errs.local_frequency = "Please select your local exploration frequency";
     }
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -244,14 +250,13 @@ export function WaitlistForm() {
       data.travel_pain_point === "Other" && data.travel_pain_point_other.trim()
         ? `Other: ${data.travel_pain_point_other.trim()}`
         : data.travel_pain_point || null;
-    const localChallenges =
-      data.local_challenges.length
-        ? data.local_challenges.map((c) =>
-            c === "Other" && data.local_challenges_other.trim()
-              ? `Other: ${data.local_challenges_other.trim()}`
-              : c
-          )
-        : null;
+    const localChallenges = data.local_challenges.length
+      ? data.local_challenges.map((c) =>
+          c === "Other" && data.local_challenges_other.trim()
+            ? `Other: ${data.local_challenges_other.trim()}`
+            : c,
+        )
+      : null;
     const cityValue =
       data.city === "Other" && data.city_other.trim()
         ? `Other: ${data.city_other.trim()}`
@@ -274,7 +279,9 @@ export function WaitlistForm() {
     setSubmitting(false);
     if (error) {
       if (error.code === "23505") {
-        setServerMsg("This email is already on the waitlist. Check your inbox for updates from us!");
+        setServerMsg(
+          "This email is already on the waitlist. Check your inbox for updates from us!",
+        );
         setDone(true);
         localStorage.removeItem(STORAGE_KEY);
         return;
@@ -294,14 +301,18 @@ export function WaitlistForm() {
         </div>
         <h3 className="mt-5 font-display text-3xl font-semibold text-primary">🎉 You're In!</h3>
         <p className="mt-3 text-foreground">
-          {serverMsg ?? "Thanks for joining! Check your email for updates and a special surprise soon."}
+          {serverMsg ??
+            "Thanks for joining! Check your email for updates and a special surprise soon."}
         </p>
       </div>
     );
   }
 
   return (
-    <div ref={formRef} className="rounded-2xl bg-card p-6 sm:p-8 shadow-[var(--shadow-soft)] border space-y-6">
+    <div
+      ref={formRef}
+      className="rounded-2xl bg-card p-6 sm:p-8 shadow-[var(--shadow-soft)] border space-y-6"
+    >
       <Progress step={step} />
       {resumed && step > 1 && (
         <p className="text-xs text-muted-foreground -mt-2">Resuming from step {step}…</p>
@@ -341,7 +352,12 @@ export function WaitlistForm() {
             </Select>
           </Field>
           {data.city === "Other" && (
-            <Field label="Specify your city" error={errors.city_other} htmlFor="city_other" required>
+            <Field
+              label="Specify your city"
+              error={errors.city_other}
+              htmlFor="city_other"
+              required
+            >
               <Input
                 id="city_other"
                 value={data.city_other}
@@ -479,11 +495,15 @@ export function WaitlistForm() {
           className={step === TOTAL_STEPS ? "h-12 px-7 text-base shadow-[var(--shadow-glow)]" : ""}
         >
           {submitting ? (
-            <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Joining…</>
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Joining…
+            </>
           ) : step === TOTAL_STEPS ? (
             "Join the Waitlist"
           ) : (
-            <>Next <ArrowRight className="ml-1 h-4 w-4" /></>
+            <>
+              Next <ArrowRight className="ml-1 h-4 w-4" />
+            </>
           )}
         </Button>
       </div>
@@ -502,7 +522,9 @@ function Progress({ step }: { step: number }) {
         <span className="font-display text-xs font-medium text-muted-foreground">
           Step {step} of {TOTAL_STEPS}
         </span>
-        <span className="text-xs text-muted-foreground">{Math.round((step / TOTAL_STEPS) * 100)}%</span>
+        <span className="text-xs text-muted-foreground">
+          {Math.round((step / TOTAL_STEPS) * 100)}%
+        </span>
       </div>
       <div className="flex gap-1.5">
         {Array.from({ length: TOTAL_STEPS }).map((_, i) => {
@@ -641,7 +663,9 @@ function CheckboxGroup({
             >
               <span
                 className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-2 ${
-                  active ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
+                  active
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-muted-foreground/30"
                 }`}
               >
                 {active && <Check className="h-3.5 w-3.5" />}
