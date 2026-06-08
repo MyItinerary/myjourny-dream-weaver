@@ -17,4 +17,21 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (!id.includes("node_modules")) return;
+            if (id.includes("react-dom")) return "react-dom";
+            if (id.includes("react") || id.includes("scheduler")) return "react";
+            if (id.includes("@tanstack")) return "tanstack";
+            if (id.includes("@radix-ui")) return "radix";
+            if (id.includes("@supabase")) return "supabase";
+            return "vendor";
+          },
+        },
+      },
+    },
+  },
 });
