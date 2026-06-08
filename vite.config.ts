@@ -7,15 +7,14 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  // Force-enable Nitro outside of Lovable (e.g. Vercel CI).
+  // NITRO_PRESET env var switches the deployment target:
+  //   unset  → cloudflare (Lovable's default)
+  //   vercel → Vercel serverless (set NITRO_PRESET=vercel in Vercel project env vars)
+  nitro: { preset: process.env.NITRO_PRESET || "cloudflare" },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
-    server: {
-      entry: "server",
-      // NITRO_PRESET env var switches the deployment target:
-      //   unset  → cloudflare (Lovable default)
-      //   vercel → Vercel serverless (set in Vercel project env vars)
-      ...(process.env.NITRO_PRESET ? { preset: process.env.NITRO_PRESET } : {}),
-    },
+    server: { entry: "server" },
   },
 });
