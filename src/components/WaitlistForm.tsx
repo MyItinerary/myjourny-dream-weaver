@@ -334,17 +334,35 @@ export function WaitlistForm() {
               aria-invalid={!!errors.email}
             />
           </Field>
-          <Field label="City of Interest" error={errors.city} htmlFor="city" required>
-            <Select value={data.city} onValueChange={(v) => update("city", v as FormState["city"])}>
-              <SelectTrigger id="city" aria-invalid={!!errors.city}>
-                <SelectValue placeholder="Choose a city" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Lagos">Lagos</SelectItem>
-                <SelectItem value="Abuja">Abuja</SelectItem>
-                <SelectItem value="Other">Other (please specify)</SelectItem>
-              </SelectContent>
-            </Select>
+          <Field label="City of Interest" error={errors.city} required>
+            <div className="grid gap-2">
+              {CITIES.map((c) => {
+                const active = data.city === c;
+                const label = c === "Other" ? "Other (please specify)" : c;
+                return (
+                  <button
+                    type="button"
+                    key={c}
+                    onClick={() => update("city", c)}
+                    aria-pressed={active}
+                    className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm transition-colors ${
+                      active
+                        ? "bg-primary-soft border-primary text-foreground"
+                        : "bg-background hover:bg-primary-soft/40 hover:border-primary/30"
+                    }`}
+                  >
+                    <span
+                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${
+                        active ? "border-primary" : "border-muted-foreground/30"
+                      }`}
+                    >
+                      {active && <span className="h-2.5 w-2.5 rounded-full bg-primary" />}
+                    </span>
+                    <span>{label}</span>
+                  </button>
+                );
+              })}
+            </div>
           </Field>
           {data.city === "Other" && (
             <Field
