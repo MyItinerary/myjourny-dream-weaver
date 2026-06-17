@@ -4,14 +4,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { CheckCircle2, Loader2, ArrowLeft, ArrowRight, Check } from "lucide-react";
+
+const CITIES = ["Lagos", "Abuja", "Other"] as const;
 
 const STORAGE_KEY = "myjourny_waitlist_draft_v1";
 const TOTAL_STEPS = 4;
