@@ -34,6 +34,21 @@ export default defineConfig({
             // vendor↔react cycle that caused "Cannot set properties of undefined
             // (setting 'Activity')" at runtime.
             if (id.includes("lucide-react")) return "lucide";
+            // React UI component libraries go in a separate "ui" chunk so the
+            // pure-JS "vendor" chunk has no React dependency, fully eliminating
+            // any remaining vendor↔react circular chunk cycles.
+            if (
+              id.includes("recharts") ||
+              id.includes("cmdk") ||
+              id.includes("embla-carousel") ||
+              id.includes("react-hook-form") ||
+              id.includes("sonner") ||
+              id.includes("vaul") ||
+              id.includes("react-day-picker") ||
+              id.includes("react-resizable-panels") ||
+              id.includes("input-otp")
+            )
+              return "ui";
             return "vendor";
           },
         },
