@@ -23,11 +23,17 @@ export default defineConfig({
         output: {
           manualChunks(id) {
             if (!id.includes("node_modules")) return;
-            if (id.includes("react-dom")) return "react-dom";
-            if (id.includes("react") || id.includes("scheduler")) return "react";
+            // react-dom and react share internal circular imports in React 19 —
+            // keeping them in the same chunk eliminates that cycle.
+            if (id.includes("react-dom") || id.includes("react") || id.includes("scheduler"))
+              return "react";
             if (id.includes("@tanstack")) return "tanstack";
             if (id.includes("@radix-ui")) return "radix";
             if (id.includes("@supabase")) return "supabase";
+            // lucide-react in its own chunk prevents it from participating in the
+            // vendor↔react cycle that caused "Cannot set properties of undefined
+            // (setting 'Activity')" at runtime.
+            if (id.includes("lucide-react")) return "lucide";
             return "vendor";
           },
         },
